@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="utf-8">
 	<title>Title</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 	<script type="text/javascript">
+		ymaps.ready(init);
+		var myMap,
+			myPlacemark;
+
+		function init(){
+			myMap = new ymaps.Map("map", {
+				center: [43.2220, 76.8512],
+				zoom: 7
+			});
+
+		myPlacemark = new ymaps.Placemark([43.2220, 76.8512], {
+			hintContent: 'Алматы |',
+			balloonContent: 'Лучший город Казахстана'
+		});
+
+		myMap.geoObjects.add(myPlacemark);
+		}
+
 		$(function() {
 			$("#button-to-click").click(function(){
 				$.ajax({
@@ -37,7 +56,7 @@
 		<input type="submit" value="OK">
 	</form>
 
-
+    <div id="map" style="width: 600px; height: 400px"></div>
 
 </body>
 </html>

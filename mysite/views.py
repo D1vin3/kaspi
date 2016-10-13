@@ -1,9 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 from django.views.generic import View
 
-from mysite.models import Question
-from mysite.serializers import QuestionSerializer#, ChoiceSerializer
+from mysite.models import Question, MyHome
+from mysite.serializers import QuestionSerializer, MyHomeSerializer #, ChoiceSerializer
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -31,16 +31,20 @@ class GreetingView(View):
 
 # Django Rest Framework  DRF
 class DRFView(APIView):
+
 	template_name = 'drf.html'
 	def get(self, request, format=None):
 		if request.is_ajax():
 			return Response({'data': 'Ajax call'})
 
-		questions = Question.objects.all()
-		questions_serializer = QuestionSerializer(questions, many=True)
-		data = questions_serializer.data
-
+	# 	questions = Question.objects.all()
+	# 	questions_serializer = QuestionSerializer(questions, many=True)
+	# 	data = questions_serializer.data
+		homes = MyHome.objects.all()
+		homes_serializer = MyHomeSerializer(homes, many=True)
+		data = homes_serializer.data
 		return Response({'data': data})
+
 
 
 	def post(self, request):

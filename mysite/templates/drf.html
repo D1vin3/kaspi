@@ -3,8 +3,22 @@
 <head>
 	<meta charset="utf-8">
 	<title>Title</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#button-to-click").click(function(){
+				$.ajax({
+					url: "/drf.json",
+					success: function(result){
+						alert(result.data);
+					}
+				});
+			});
+		});
+	</script>
 </head>
 <body>
+
 	Our objects:
 	<table>
 		{% for object in data %}
@@ -14,6 +28,9 @@
 		</tr>
 		{% endfor %}
 	</table>
+
+	<button id="button-to-click">Click me</button>
+
 	<form action="" method="post">{% csrf_token %}
 		<label for="your_name">Вопрос: </label>
 		<input id="question_text" type="text" name="question_text" value="">

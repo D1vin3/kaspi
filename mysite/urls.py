@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from mysite import views
+from rest_framework.urlpatterns import format_suffix_patterns
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,3 +29,4 @@ urlpatterns = [
 
 
 ]
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['html', 'json'])

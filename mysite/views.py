@@ -28,11 +28,14 @@ class GreetingView(View):
 		return render(request, self.template_name, {'greeting': self.greeting})
 
 
+
 # Django Rest Framework  DRF
 class DRFView(APIView):
-	template_name = 'drf.html';
-
+	template_name = 'drf.html'
 	def get(self, request, format=None):
+		if request.is_ajax():
+			return Response({'data': 'Ajax call'})
+
 		questions = Question.objects.all()
 		questions_serializer = QuestionSerializer(questions, many=True)
 		data = questions_serializer.data

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Title</title>
+</head>
+<body>
+<!-- 	Our objects:
+	<table>
+		{% for object in data %}
+		<tr>
+			<td>{{ object.question_text}}</td>
+			<td>{{ object.pub_date}}</td>
+		</tr>
+		{% endfor %}
+	</table> -->
+	<form action="" method="post">{% csrf_token %}
+		<label for="your_name">Вопрос: </label>
+		<input id="question_text" type="text" name="question_text" value="">
+		<input type="submit" value="OK">
+	</form>
+
+
+
+</body>
+</html>

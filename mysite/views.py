@@ -29,30 +29,47 @@ class GreetingView(View):
 
 
 
-# Django Rest Framework  DRF
+
 class DRFView(APIView):
 
 	template_name = 'drf.html'
+
 	def get(self, request, format=None):
 		if request.is_ajax():
 			return Response({'data': 'Ajax call'})
+		# print request.GET.get('longitude', None)	
+		# print(request.data)
+		serializer = MyHomeSerializer(data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			homes = MyHome.objects.all()
+			homes_serializer = MyHomeSerializer(homes, many=True)
+			data = homes_serializer.data
+			return Response({'data': data})
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-	# 	questions = Question.objects.all()
-	# 	questions_serializer = QuestionSerializer(questions, many=True)
-	# 	data = questions_serializer.data
-		homes = MyHome.objects.all()
-		homes_serializer = MyHomeSerializer(homes, many=True)
-		data = homes_serializer.data
-		return Response({'data': data})
+
+		# questions = Question.objects.all()
+		# questions_serializer = QuestionSerializer(questions, many=True)
+		# data = questions_serializer.data
+		# homes = MyHome.objects.all()
+		# homes_serializer = MyHomeSerializer(homes, many=True)
+		# data = homes_serializer.data
+		# return Response({'data': data})
 
 
 
 	def post(self, request):
-		serializer = QuestionSerializer(data=request.data)
+
+		if request.is_ajax():
+			return Response({'data': 'Ajax call'})
+		MyHome.objects.all().delete()
+		serializer = MyHomeSerializer(data=request.data)
 		if serializer.is_valid():
+			print(serializer)
 			serializer.save()
-			questions = Question.objects.all()
-			questions_serializer = QuestionSerializer(questions, many=True)
-			data = questions_serializer.data
+			homes = MyHome.objects.all()
+			homes_serializer = MyHomeSerializer(homes, many=True)
+			data = homes_serializer.data
 			return Response ({'data': data})
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

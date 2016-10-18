@@ -42,8 +42,10 @@
 	<table>
 		{% for object in data %}
 		<tr>
-			<td>{{ object.question_text}}</td>
-			<td>{{ object.pub_date}}</td>
+			<!-- <td>{{ object.question_text}}</td> -->
+			<!-- <td>{{ object.pub_date}}</td> -->
+			<td>{{ object.properties.latitude }}</td>
+			<td>{{ object.longitude }}</td>
 		</tr>
 		{% endfor %}
 	</table>
@@ -51,8 +53,11 @@
 	<button id="button-to-click">Click me</button>
 
 	<form action="" method="post">{% csrf_token %}
-		<label for="your_name">Вопрос: </label>
-		<input id="question_text" type="text" name="question_text" value="">
+		<!-- <label for="your_name">Вопрос: </label> -->
+		<!-- <input id="question_text" type="text" name="question_text" value=""> -->
+		<input id="address" type="text" name="address" value="">
+		<input id="latitude" type="number" name="latitude" value="">
+		<input id="longitude" type="number" name="longitude" value="">
 		<input type="submit" value="OK">
 	</form>
 
